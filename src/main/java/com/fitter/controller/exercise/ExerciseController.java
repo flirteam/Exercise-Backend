@@ -1,4 +1,4 @@
-    //ExerciseController.java
+    //ExerciseController.java exercise
     package com.fitter.controller.exercise;
 
     import com.fitter.domain.exercise.ExerciseBase;
