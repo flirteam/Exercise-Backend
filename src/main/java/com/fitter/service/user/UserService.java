@@ -5,6 +5,7 @@ import com.fitter.domain.user.User;
 import com.fitter.domain.user.UserPhysicalInfo;
 import com.fitter.dto.request.PhysicalInfoRequest;
 import com.fitter.dto.request.UserRegistrationRequest;
+import com.fitter.dto.response.LoginResponse;
 import com.fitter.dto.response.UserPhysicalInfoResponse;
 import com.fitter.dto.response.UserResponse;
 import com.fitter.exception.UserNotFoundException;
@@ -34,7 +35,7 @@ public class UserService {
     private final RedisTemplate<String, String> redisTemplate;
     private final JwtTokenProvider jwtTokenProvider;
 
-    // 회원가입 처리
+    // 회원가입
     @Transactional
     public UserResponse registerUser(UserRegistrationRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -55,7 +56,7 @@ public class UserService {
 
         // 신체 정보 초기값 설정
         UserPhysicalInfo physicalInfo = UserPhysicalInfo.builder()
-                .user(user)  // user 설정 추가
+                .user(user)
                 .currentWeight(0.0)
                 .targetWeight(0.0)
                 .height(0.0)
@@ -63,10 +64,10 @@ public class UserService {
                 .gender(UserPhysicalInfo.Gender.Male)
                 .activityLevel(1)
                 .goalType(UserPhysicalInfo.GoalType.균형_식단)
-                .basalMetabolicRate(0.0)    // 초기값 설정
-                .activeMetabolicRate(0.0)   // 초기값 설정
-                .bmi(0.0)                   // 초기값 설정
-                .bodyFatPercentage(0.0)     // 초기값 설정
+                .basalMetabolicRate(0.0)
+                .activeMetabolicRate(0.0)
+                .bmi(0.0)
+                .bodyFatPercentage(0.0)
                 .build();
 
         user.setPhysicalInfo(physicalInfo);
@@ -74,23 +75,56 @@ public class UserService {
         return UserResponse.from(userRepository.save(user));
     }
 
-    // 로그인 처리 및 JWT 반환
     @Transactional
-    public String login(String email, String password) {
+    public LoginResponse login(String email, String password) {
+        // 1. 이메일로 사용자 조회
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("이메일 또는 비밀번호가 잘못되었습니다."));
 
+        // 2. 비밀번호 검증
         if (!checkPassword(password, user.getPassword())) {
             throw new IllegalArgumentException("이메일 또는 비밀번호가 잘못되었습니다.");
         }
 
-        // JWT 토큰 생성
-        return jwtTokenProvider.generateToken(user.getId());
+        // 3. JWT 토큰 생성
+        String accessToken = jwtTokenProvider.generateToken(user.getId());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId());
+
+        // 4. 사용자 정보를 포함한 응답 생성
+        return LoginResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .userInfo(LoginResponse.UserResponse.builder()
+                        .id(user.getId())
+                        .email(user.getEmail())
+                        .username(user.getUsername())
+                        .physicalInfo(convertPhysicalInfo(user.getPhysicalInfo()))
+                        .build())
+                .build();
     }
 
-    // 로그아웃 처리 (Redis 세션 제거)
-    public void logout(String sessionId) {
-        redisTemplate.delete(sessionId);
+    private LoginResponse.PhysicalInfoResponse convertPhysicalInfo(UserPhysicalInfo info) {
+        if (info == null) {
+            return null;
+        }
+        return LoginResponse.PhysicalInfoResponse.builder()
+                .currentWeight(info.getCurrentWeight())
+                .targetWeight(info.getTargetWeight())
+                .height(info.getHeight())
+                .age(info.getAge())
+                .gender(info.getGender().name())
+                .activityLevel(info.getActivityLevel())
+                .goalType(info.getGoalType().name())
+                .basalMetabolicRate(info.getBasalMetabolicRate())
+                .activeMetabolicRate(info.getActiveMetabolicRate())
+                .bmi(info.getBmi())
+                .bodyFatPercentage(info.getBodyFatPercentage())
+                .build();
+    }
+
+    // 로그아웃 - 클라이언트에서 토큰 삭제
+    public void logout(String token) {
+        // 토큰 블랙리스트 처리 등 필요한 로직
     }
 
     // Redis 세션을 통해 사용자 조회
