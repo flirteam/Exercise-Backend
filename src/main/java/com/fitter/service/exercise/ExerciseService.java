@@ -148,10 +148,10 @@ public class ExerciseService {
         double targetWeight = physicalInfo.getTargetWeight();
         double weightDiff = Math.abs(currentWeight - targetWeight);
 
-        int baseDuration = 30; // 기본 30분
-        int additionalMinutes = (int) (weightDiff * 2); // 체중 차이 1kg당 2분 추가
+        int baseDuration = 15; // 기본 30분
+        int additionalMinutes = (int) (weightDiff * 1.25); // 체중 차이 1kg당 2분 추가
 
-        return Math.min(baseDuration + additionalMinutes, 90); // 최대 90분으로 제한
+        return Math.min(baseDuration + additionalMinutes, 30); // 최대 90분으로 제한
     }
 
     // 운동 카테고리별 조회

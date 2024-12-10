@@ -290,7 +290,7 @@ public class ExerciseRecommendationService {
     private int calculateRecommendedDuration(UserPhysicalInfo physicalInfo) {
         double weightDiff = Math.abs(physicalInfo.getCurrentWeight() - physicalInfo.getTargetWeight());
         int baseDuration = 15;
-        int additionalMinutes = (int) (weightDiff * 1.28);
+        int additionalMinutes = (int) (weightDiff * 1.25);
         return Math.min(baseDuration + additionalMinutes, 30);
     }
 
