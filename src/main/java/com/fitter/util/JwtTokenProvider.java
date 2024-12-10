@@ -1,61 +1,15 @@
 //JwtTokenProvider.java
 package com.fitter.util;
 
-/*import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
-
-import java.security.Key;
-import java.util.Date;
-
-@Component
-public class JwtTokenProvider {
-
-    private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512); // 강력한 키 생성
-    private final long expirationTime = 86400000; // 토큰 유효 시간 (1일)
-
-    // JWT 생성
-    public String generateToken(Long userId) {
-        return Jwts.builder()
-                .setSubject(String.valueOf(userId)) // 사용자 ID를 subject로 설정
-                .setIssuedAt(new Date()) // 토큰 발급 시간
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTime)) // 만료 시간
-                .signWith(secretKey) // 서명 키 사용
-                .compact();
-    }
-
-    // JWT에서 사용자 ID 추출
-    public Long getUserIdFromToken(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(secretKey) // 서명 키로 토큰 파싱
-                .build()
-                .parseClaimsJws(token.replace("Bearer ", "")) // Bearer 접두어 제거
-                .getBody();
-        return Long.parseLong(claims.getSubject()); // subject에서 사용자 ID 추출
-    }
-
-    // JWT 유효성 검증
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder()
-                    .setSigningKey(secretKey) // 서명 키 설정
-                    .build()
-                    .parseClaimsJws(token); // 토큰 파싱 및 검증
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            return false;
-        }
-    }
-}*/
-
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value; // 환경 변수 주입을 위한 @Value
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtTokenProvider {
@@ -72,67 +26,54 @@ public class JwtTokenProvider {
     @Value("${jwt.refreshExpiresIn}")
     private long jwtRefreshExpiresIn;
 
-    // 시크릿 키 생성 메서드 추가
+    // Secret Key 생성 메서드
     private Key getSigningKey(String secret) {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // Access Token 생성
     public String generateAccessToken(Long userId) {
         return Jwts.builder()
-                .setSubject(String.valueOf(userId))
-                .setIssuedAt(new Date())
+                .setClaims(Map.of("id", userId))
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiresIn * 1000))
-                .signWith(getSigningKey(jwtSecret))
+                .signWith(getSigningKey(jwtSecret), SignatureAlgorithm.HS384)
                 .compact();
     }
 
-    // Refresh Token 생성
     public String generateRefreshToken(Long userId) {
         return Jwts.builder()
-                .setSubject(String.valueOf(userId))
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtRefreshExpiresIn * 1000))
-                .signWith(getSigningKey(jwtRefreshSecret))
+                .setClaims(Map.of("id", userId))
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiresIn * 1000))
+                .signWith(getSigningKey(jwtRefreshSecret), SignatureAlgorithm.HS384)
                 .compact();
     }
 
-    // Access Token과 Refresh Token을 함께 생성
-    public Tokens generateTokens(Long userId) {
-        String accessToken = generateAccessToken(userId);
-        String refreshToken = generateRefreshToken(userId);
-        return new Tokens(accessToken, refreshToken);
-    }
-
-    // 기본 토큰 생성 (AccessToken 생성)
+    // Access Token 생성 (기본 메서드)
     public String generateToken(Long userId) {
         return generateAccessToken(userId);
     }
 
-    public Long getUserIdFromToken(String token) {
-        return getUserIdFromToken(token, false);
-    }
 
     // 토큰에서 사용자 ID 추출
-    public Long getUserIdFromToken(String token, boolean isRefreshToken) {
-        String secret = isRefreshToken ? jwtRefreshSecret : jwtSecret;
+    public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parserBuilder()
-                .setSigningKey(getSigningKey(secret))
+                .setSigningKey(getSigningKey(jwtSecret))
                 .build()
-                .parseClaimsJws(token.replace("Bearer ", ""))
+                .parseClaimsJws(token.replace("Bearer ", "")) // Bearer 제거
                 .getBody();
-        return Long.parseLong(claims.getSubject());
+        return Long.parseLong(claims.get("id").toString());
     }
 
+
     // 토큰 유효성 검증
-    public boolean validateToken(String token, boolean isRefreshToken) {
+    public boolean validateToken(String token) {
         try {
-            String secret = isRefreshToken ? jwtRefreshSecret : jwtSecret;
             Jwts.parserBuilder()
-                    .setSigningKey(getSigningKey(secret))
+                    .setSigningKey(getSigningKey(jwtSecret))
                     .build()
-                    .parseClaimsJws(token);
+                    .parseClaimsJws(token); // 토큰 파싱 및 검증
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
@@ -157,4 +98,5 @@ public class JwtTokenProvider {
             return refreshToken;
         }
     }
+
 }

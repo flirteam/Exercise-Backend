@@ -36,10 +36,10 @@ public class MetabolicCalculator {
     // 활동 계수 반환
     private double getActivityFactor(int activityLevel) {
         return switch (activityLevel) {
-            case 1 -> 1.725; // 매우 활동적
-            case 2 -> 1.55;  // 중간 정도 활동적
-            case 3 -> 1.375; // 약간 활동적
-            case 4 -> 1.2;   // 비활동적
+            case 1 -> 1.2; // 비활동적
+            case 2 -> 1.375;  // 약간 활동적
+            case 3 -> 1.55; // 중간 정돈 활동적
+            case 4 -> 1.725;   // 매우 활동적
             default -> 1.2;
         };
     }
@@ -88,10 +88,10 @@ public class MetabolicCalculator {
     private int estimateRestingHeartRate(UserPhysicalInfo physicalInfo) {
         // 활동 레벨에 따른 안정시 심박수 추정
         return switch (physicalInfo.getActivityLevel()) {
-            case 1 -> 60;  // 매우 활동적
-            case 2 -> 65;  // 중간 정도 활동적
-            case 3 -> 70;  // 약간 활동적
-            default -> 75; // 비활동적
+            case 1 -> 75;  // 비활동적
+            case 2 -> 70;  // 약간 활동적
+            case 3 -> 65;  // 중간 정도 활동적
+            default -> 60; // 매우 활동적
         };
     }
 

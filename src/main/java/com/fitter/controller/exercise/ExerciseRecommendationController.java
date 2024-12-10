@@ -25,11 +25,12 @@ public class ExerciseRecommendationController {
     private final JwtTokenProvider jwtTokenProvider; // JWT 유틸리티 클래스
 
     @PostMapping
-    public ResponseEntity<ExerciseRecommendationResponse> createRecommendation(
+    public ResponseEntity<List<ExerciseRecommendationResponse>> createRecommendation(
             @RequestHeader("Authorization") String token) {
         Long userId = jwtTokenProvider.getUserIdFromToken(token);
-        ExerciseRecommendationResponse response = recommendationService.createRecommendation(userId);
-        return ResponseEntity.ok(response);
+        List<ExerciseRecommendationResponse> responses =
+                recommendationService.createRecommendation(userId);
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping

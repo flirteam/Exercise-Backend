@@ -79,7 +79,7 @@ public class ExerciseRecommendationResponse {
             reason.append("체중 감량이 필요한 상태이며, ");
         }
 
-        if (activityLevel >= 3) {
+        if (activityLevel <= 2) {
             reason.append("현재 활동량이 낮은 편이므로 점진적인 운동 강도 증가를 추천드립니다. ");
         } else {
             reason.append("현재 활동량이 적절한 수준이므로 현재 강도를 유지하는 것을 추천드립니다. ");

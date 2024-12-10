@@ -52,10 +52,10 @@ public class CalorieCalculator {
     // 활동량별 보정 계수
     private double getActivityLevelFactor(int activityLevel) {
         return switch (activityLevel) {
-            case 1 -> 1.1;  // 매우 활동적
-            case 2 -> 1.0;  // 중간
-            case 3 -> 0.9;  // 약간
-            case 4 -> 0.8;  // 비활동적
+            case 1 -> 0.8;  // 비활동적
+            case 2 -> 0.9;  // 약간
+            case 3 -> 1.0;  // 중간
+            case 4 -> 1.1;  // 매우 활동적
             default -> 1.0;
         };
     }

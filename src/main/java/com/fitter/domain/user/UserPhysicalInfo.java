@@ -113,10 +113,10 @@ public class UserPhysicalInfo {
 
         // AMR 계산
         double activityFactor = switch (activityLevel) {
-            case 1 -> 1.725;
-            case 2 -> 1.55;
-            case 3 -> 1.375;
-            case 4 -> 1.2;
+            case 1 -> 1.2;
+            case 2 -> 1.375;
+            case 3 -> 1.55;
+            case 4 -> 1.725;
             default -> 1.2;
         };
         this.activeMetabolicRate = this.basalMetabolicRate * activityFactor;

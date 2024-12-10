@@ -58,11 +58,11 @@ public class ExercisePreferenceRequest {
         }
 
         // BMI와 활동량에 따른 강도 제한
-        if (bmi >= 30 || activityLevel >= 3) {
+        if (bmi >= 30 || activityLevel <= 2) {
             return preferredIntensity != ExerciseRoutine.IntensityLevel.높음;
         }
 
-        if (bmi <= 18.5 || activityLevel == 4) {
+        if (bmi <= 18.5 || activityLevel == 1) {
             return preferredIntensity != ExerciseRoutine.IntensityLevel.높음;
         }
 

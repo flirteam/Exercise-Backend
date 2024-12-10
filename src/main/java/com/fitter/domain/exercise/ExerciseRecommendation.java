@@ -64,9 +64,9 @@ public class ExerciseRecommendation {
         double bmi = user.getPhysicalInfo().getBmi();
         int activityLevel = user.getPhysicalInfo().getActivityLevel();
 
-        if (bmi >= 30 || activityLevel >= 3) {
+        if (bmi >= 30 || activityLevel <= 1) {
             return ExerciseRoutine.IntensityLevel.낮음;
-        } else if (bmi >= 25 || activityLevel == 2) {
+        } else if (bmi >= 25 || activityLevel == 2 || activityLevel == 3) {
             return ExerciseRoutine.IntensityLevel.중간;
         } else {
             return ExerciseRoutine.IntensityLevel.높음;

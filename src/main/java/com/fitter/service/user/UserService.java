@@ -2,6 +2,7 @@
 package com.fitter.service.user;
 
 import com.fitter.domain.user.User;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.fitter.domain.user.UserPhysicalInfo;
 import com.fitter.dto.request.PhysicalInfoRequest;
 import com.fitter.dto.request.UserRegistrationRequest;
@@ -13,12 +14,12 @@ import com.fitter.repository.user.UserRepository;
 import com.fitter.repository.user.UserPhysicalInfoRepository;
 import com.fitter.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import jakarta.persistence.EntityNotFoundException;
 import java.time.Duration;
@@ -143,14 +144,15 @@ public class UserService {
         return UserResponse.from(user);
     }
 
-    // 비밀번호 해싱 (BCrypt 사용)
-    private String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
+    // 비밀번호 해싱 (Node.js와 동일한 형식으로 생성)
+    public static String hashPassword(String password) {
+        return BCrypt.withDefaults().hashToString(10, password.toCharArray());
     }
 
     // 비밀번호 검증
-    private boolean checkPassword(String plainPassword, String hashedPassword) {
-        return BCrypt.checkpw(plainPassword, hashedPassword);
+    public static boolean checkPassword(String plainPassword, String hashedPassword) {
+        BCrypt.Result result = BCrypt.verifyer().verify(plainPassword.toCharArray(), hashedPassword);
+        return result.verified;
     }
 
     // 전체 사용자 목록 조회 (페이징 처리)

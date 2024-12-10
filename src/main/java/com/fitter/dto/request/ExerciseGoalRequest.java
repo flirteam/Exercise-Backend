@@ -56,10 +56,10 @@ public class ExerciseGoalRequest {
 
         // 활동량에 따른 조정
         double activityFactor = switch (activityLevel) {
-            case 1 -> 1.3;  // 매우 활동적
-            case 2 -> 1.1;  // 중간
-            case 3 -> 0.9;  // 약간
-            case 4 -> 0.7;  // 비활동적
+            case 1 -> 0.7;  // 비활동적
+            case 2 -> 0.9;  // 약간
+            case 3 -> 1.1;  // 중간
+            case 4 -> 1.3;  // 매우 활동적
             default -> 1.0;
         };
 
