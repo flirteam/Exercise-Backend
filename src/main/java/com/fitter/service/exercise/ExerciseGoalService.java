@@ -37,8 +37,6 @@ public class ExerciseGoalService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
 
-        completeActiveGoals(userId);
-
         ExerciseGoal goal = ExerciseGoal.builder()
                 .user(user)
                 .targetCaloriesPerDay(request.getTargetCaloriesPerDay())
@@ -51,7 +49,56 @@ public class ExerciseGoalService {
         ExerciseGoal savedGoal = goalRepository.save(goal);
         updateGoalAchievement(userId);
 
-        return getActiveGoal(userId);
+        return ExerciseGoalResponse.from(savedGoal, analyzeGoalAchievementByGoalId(savedGoal.getId()));
+    }
+
+    public List<ExerciseGoalResponse> getAllGoals(Long userId, LocalDate startDate, LocalDate endDate) {
+        List<ExerciseGoal> goals = goalRepository.findByUserIdAndDateRange(userId, startDate, endDate);
+        return goals.stream()
+                .map(goal -> ExerciseGoalResponse.from(goal, analyzeGoalAchievementByGoalId(goal.getId())))
+                .collect(Collectors.toList());
+    }
+
+    public List<ExerciseGoalResponse> getActiveGoals(Long userId) {
+        List<ExerciseGoal> activeGoals = goalRepository.findByUserIdAndStatus(userId, ExerciseGoal.GoalStatus.진행중);
+
+        if (activeGoals.isEmpty()) {
+            throw new GoalNotFoundException("No active goals found for user: " + userId);
+        }
+
+        return activeGoals.stream()
+                .map(goal -> {
+                    GoalAchievementAnalysis analysis = analyzeGoalAchievementByGoalId(goal.getId());
+                    return ExerciseGoalResponse.from(goal, analysis);
+                })
+                .collect(Collectors.toList());
+    }
+
+
+    @Transactional
+    public void deleteGoal(Long userId, Long goalId) {
+        ExerciseGoal goal = goalRepository.findById(goalId)
+                .orElseThrow(() -> new GoalNotFoundException("Goal not found with id: " + goalId));
+
+        // 권한 확인
+        if (!goal.getUser().getId().equals(userId)) {
+            throw new IllegalStateException("You don't have permission to delete this goal");
+        }
+
+        // 진행 중인 목표는 삭제할 수 없음
+        /*if (goal.getStatus() == ExerciseGoal.GoalStatus.진행중) {
+            throw new IllegalStateException("Cannot delete an active goal");
+        }*/
+
+        goalRepository.delete(goal);
+    }
+
+    public List<Map<String, Object>> getGoalStatistics(Long userId) {
+        return goalRepository.getGoalStatistics(userId);
+    }
+
+    public List<Object[]> getGoalTrends(Long userId, LocalDate startDate, LocalDate endDate) {
+        return goalRepository.getGoalTrends(userId, startDate, endDate);
     }
 
     @Transactional
@@ -87,10 +134,11 @@ public class ExerciseGoalService {
     @Transactional
     public void updateGoalAchievement(Long userId) {
         try {
-            ExerciseGoal activeGoal = goalRepository.findByUserIdAndStatus(userId, ExerciseGoal.GoalStatus.진행중)
-                    .stream()
-                    .findFirst()
-                    .orElseThrow(() -> new GoalNotFoundException("No active goal found"));
+            // 활성화된 목표들 모두 조회로 변경
+            List<ExerciseGoal> activeGoals = goalRepository.findByUserIdAndStatus(userId, ExerciseGoal.GoalStatus.진행중);
+            if (activeGoals.isEmpty()) {
+                throw new GoalNotFoundException("No active goal found");
+            }
 
             // 오늘의 운동 기록 조회
             LocalDate today = LocalDate.now();
@@ -106,19 +154,22 @@ public class ExerciseGoalService {
                     .mapToDouble(UserExerciseProgress::getActualCaloriesBurned)
                     .sum();
 
-            // 달성률 계산
-            double minutesAchievementRate = (totalMinutes * 100.0) / activeGoal.getTargetExerciseMinutesPerDay();
-            double caloriesAchievementRate = (totalCalories * 100.0) / activeGoal.getTargetCaloriesPerDay();
+            // 각 활성화된 목표에 대해 달성률 업데이트
+            for (ExerciseGoal activeGoal : activeGoals) {
+                // 달성률 계산
+                double minutesAchievementRate = (totalMinutes * 100.0) / activeGoal.getTargetExerciseMinutesPerDay();
+                double caloriesAchievementRate = (totalCalories * 100.0) / activeGoal.getTargetCaloriesPerDay();
 
-            // 달성률 업데이트
-            activeGoal.updateAchievementRates(caloriesAchievementRate, minutesAchievementRate);
+                // 달성률 업데이트
+                activeGoal.updateAchievementRates(caloriesAchievementRate, minutesAchievementRate);
 
-            // 목표 달성 여부 체크
-            if (minutesAchievementRate >= 100 && caloriesAchievementRate >= 100) {
-                activeGoal.updateStatus(ExerciseGoal.GoalStatus.완료);
+                // 목표 달성 여부 체크
+                if (minutesAchievementRate >= 100 && caloriesAchievementRate >= 100) {
+                    activeGoal.updateStatus(ExerciseGoal.GoalStatus.완료);
+                }
+
+                goalRepository.save(activeGoal);
             }
-
-            goalRepository.save(activeGoal);
 
         } catch (GoalNotFoundException e) {
             log.debug("No active goal found for user: {}", userId);
@@ -198,4 +249,7 @@ public class ExerciseGoalService {
         double minutesAchievementRate;
         String feedback;
     }
+
+
+
 }

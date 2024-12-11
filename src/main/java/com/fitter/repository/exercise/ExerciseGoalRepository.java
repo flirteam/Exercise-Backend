@@ -69,6 +69,8 @@ public interface ExerciseGoalRepository extends JpaRepository<ExerciseGoal, Long
             @Param("endDate") LocalDate endDate
     );
 
+
+
     // 목표 유형별 성공률
     @Query("""
         SELECT 
@@ -89,4 +91,5 @@ public interface ExerciseGoalRepository extends JpaRepository<ExerciseGoal, Long
             END
     """)
     List<Object[]> getGoalSuccessRateByIntensity(@Param("userId") Long userId);
+
 }

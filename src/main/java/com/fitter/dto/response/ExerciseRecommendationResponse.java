@@ -71,7 +71,7 @@ public class ExerciseRecommendationResponse {
     }
 
     private static String generateReasonDescription(double bmi, int activityLevel, double weightDiff) {
-        StringBuilder reason = new StringBuilder("이 운동을 추천하는 이유: ");
+        StringBuilder reason = new StringBuilder();
 
         if (bmi < 18.5) {
             reason.append("체중 증가가 필요한 상태이며, ");
