@@ -39,6 +39,7 @@ public class ExerciseGoalService {
 
         ExerciseGoal goal = ExerciseGoal.builder()
                 .user(user)
+                .name(request.getName())
                 .targetCaloriesPerDay(request.getTargetCaloriesPerDay())
                 .targetExerciseMinutesPerDay(request.getTargetExerciseMinutesPerDay())
                 .startDate(request.getStartDate())
@@ -52,8 +53,8 @@ public class ExerciseGoalService {
         return ExerciseGoalResponse.from(savedGoal, analyzeGoalAchievementByGoalId(savedGoal.getId()));
     }
 
-    public List<ExerciseGoalResponse> getAllGoals(Long userId, LocalDate startDate, LocalDate endDate) {
-        List<ExerciseGoal> goals = goalRepository.findByUserIdAndDateRange(userId, startDate, endDate);
+    public List<ExerciseGoalResponse> getAllGoals(Long userId, LocalDate checkDate) {
+        List<ExerciseGoal> goals = goalRepository.findByUserIdAndDate(userId, checkDate);
         return goals.stream()
                 .map(goal -> ExerciseGoalResponse.from(goal, analyzeGoalAchievementByGoalId(goal.getId())))
                 .collect(Collectors.toList());
@@ -91,6 +92,29 @@ public class ExerciseGoalService {
         }*/
 
         goalRepository.delete(goal);
+    }
+
+    @Transactional
+    public ExerciseGoalResponse updateGoal(Long userId, Long goalId, ExerciseGoalRequest request) {
+        ExerciseGoal goal = goalRepository.findById(goalId)
+                .orElseThrow(() -> new GoalNotFoundException("Goal not found with id: " + goalId));
+
+        // 권한 확인
+        if (!goal.getUser().getId().equals(userId)) {
+            throw new IllegalStateException("You don't have permission to update this goal");
+        }
+
+        // 목표 수정
+        goal.updateGoal(
+                request.getName(),
+                request.getTargetCaloriesPerDay(),
+                request.getTargetExerciseMinutesPerDay(),
+                request.getStartDate(),
+                request.getEndDate()
+        );
+
+        ExerciseGoal updatedGoal = goalRepository.save(goal);
+        return ExerciseGoalResponse.from(updatedGoal, analyzeGoalAchievementByGoalId(updatedGoal.getId()));
     }
 
     public List<Map<String, Object>> getGoalStatistics(Long userId) {

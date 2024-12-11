@@ -44,10 +44,9 @@ public class ExerciseGoalController {
     @GetMapping("/goals")
     public ResponseEntity<List<ExerciseGoalResponse>> getAllGoals(
             @RequestHeader("Authorization") String token,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkDate) {
         Long userId = jwtTokenProvider.getUserIdFromToken(token);
-        return ResponseEntity.ok(exerciseGoalService.getAllGoals(userId, startDate, endDate));
+        return ResponseEntity.ok(exerciseGoalService.getAllGoals(userId, checkDate));
     }
 
     @DeleteMapping("/goals/{goalId}")
@@ -73,5 +72,14 @@ public class ExerciseGoalController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         Long userId = jwtTokenProvider.getUserIdFromToken(token);
         return ResponseEntity.ok(exerciseGoalService.getGoalTrends(userId, startDate, endDate));
+    }
+
+    @PutMapping("/goals/{goalId}")
+    public ResponseEntity<ExerciseGoalResponse> updateGoal(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long goalId,
+            @Valid @RequestBody ExerciseGoalRequest request) {
+        Long userId = jwtTokenProvider.getUserIdFromToken(token);
+        return ResponseEntity.ok(exerciseGoalService.updateGoal(userId, goalId, request));
     }
 }

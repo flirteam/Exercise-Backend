@@ -59,6 +59,9 @@ public class ExerciseGoal {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
+
     public enum GoalStatus {
         진행중, 완료, 중단
     }
@@ -89,4 +92,24 @@ public class ExerciseGoal {
         this.caloriesAchievementRate = caloriesRate;
         this.minutesAchievementRate = minutesRate;
     }
+
+    public void updateGoal(String name, Double targetCaloriesPerDay, Integer targetExerciseMinutesPerDay,
+                           LocalDate startDate, LocalDate endDate) {
+        if (name != null) {
+            this.name = name;
+        }
+        if (targetCaloriesPerDay != null) {
+            this.targetCaloriesPerDay = targetCaloriesPerDay;
+        }
+        if (targetExerciseMinutesPerDay != null) {
+            this.targetExerciseMinutesPerDay = targetExerciseMinutesPerDay;
+        }
+        if (startDate != null) {
+            this.startDate = startDate;
+        }
+        if (endDate != null) {
+            this.endDate = endDate;
+        }
+    }
+
 }

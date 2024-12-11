@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ExerciseGoalResponse {
     private Long id;
+    private String name;
     private Double targetCaloriesPerDay;
     private Integer targetExerciseMinutesPerDay;
     private LocalDate startDate;
@@ -36,6 +37,7 @@ public class ExerciseGoalResponse {
     public static ExerciseGoalResponse from(ExerciseGoal goal, GoalAchievementAnalysis analysis) {
         return ExerciseGoalResponse.builder()
                 .id(goal.getId())
+                .name(goal.getName())
                 .targetCaloriesPerDay(goal.getTargetCaloriesPerDay())
                 .targetExerciseMinutesPerDay(goal.getTargetExerciseMinutesPerDay())
                 .startDate(goal.getStartDate())

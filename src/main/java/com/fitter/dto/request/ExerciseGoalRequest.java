@@ -15,6 +15,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ExerciseGoalRequest {
 
+    @NotBlank(message = "운동 목표 이름은 필수입니다.")
+    @Size(max = 100, message = "운동 목표 이름은 100자를 초과할 수 없습니다.")
+    private String name;
+
     @NotNull(message = "일일 목표 칼로리는 필수입니다.")
     @Min(value = 100, message = "일일 목표 칼로리는 최소 100kcal 이상이어야 합니다.")
     @Max(value = 2000, message = "일일 목표 칼로리는 최대 2000kcal 이하여야 합니다.")

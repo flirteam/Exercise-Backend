@@ -22,14 +22,12 @@ public interface ExerciseGoalRepository extends JpaRepository<ExerciseGoal, Long
     @Query("""
         SELECT eg FROM ExerciseGoal eg
         WHERE eg.user.id = :userId
-        AND eg.startDate <= :endDate
-        AND (eg.endDate IS NULL OR eg.endDate >= :startDate)
+        AND :checkDate BETWEEN eg.startDate AND COALESCE(eg.endDate, :checkDate)
         ORDER BY eg.startDate DESC
     """)
-    List<ExerciseGoal> findByUserIdAndDateRange(
+    List<ExerciseGoal> findByUserIdAndDate(
             @Param("userId") Long userId,
-            @Param("startDate") LocalDate startDate,
-            @Param("endDate") LocalDate endDate
+            @Param("checkDate") LocalDate checkDate
     );
 
     // 가장 최근 목표 조회
