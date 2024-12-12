@@ -10,9 +10,11 @@ import com.fitter.exception.UserNotFoundException;
 import com.fitter.repository.exercise.*;
 import com.fitter.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class ExerciseRecommendationService {
 
     private final UserRepository userRepository;
@@ -33,14 +36,13 @@ public class ExerciseRecommendationService {
     private final ExerciseDifficultyMapRepository difficultyMapRepository;
 
     // 운동 추천 생성
-    @Transactional
+    @Transactional(readOnly = true)  // readOnly로 변경하여 데이터 저장 방지
     public List<ExerciseRecommendationResponse> createRecommendation(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
 
         // 4개의 운동 추천
         List<ExerciseBase> selectedExercises = selectMultipleExercises(user.getPhysicalInfo(), 4);
-
         List<ExerciseRecommendationResponse> recommendations = new ArrayList<>();
 
         for (ExerciseBase exerciseBase : selectedExercises) {
@@ -48,7 +50,8 @@ public class ExerciseRecommendationService {
             int duration = calculateRecommendedDuration(user.getPhysicalInfo());
             double caloriesBurned = calculateCaloriesBurned(user.getPhysicalInfo(), exerciseBase, duration, intensity);
 
-            ExerciseRoutine routine = ExerciseRoutine.builder()
+            // 실제 저장하지 않고 임시 객체 생성
+            ExerciseRoutine tempRoutine = ExerciseRoutine.builder()
                     .user(user)
                     .exerciseBase(exerciseBase)
                     .durationMinutes(duration)
@@ -57,21 +60,38 @@ public class ExerciseRecommendationService {
                     .routineDate(LocalDate.now())
                     .build();
 
-            ExerciseRoutine savedRoutine = exerciseRoutineRepository.save(routine);
-
-            ExerciseRecommendation recommendation = ExerciseRecommendation.builder()
+            ExerciseRecommendation tempRecommendation = ExerciseRecommendation.builder()
                     .user(user)
-                    .exerciseRoutine(savedRoutine)
+                    .exerciseRoutine(tempRoutine)
                     .recommendationDate(LocalDate.now())
-                    .caloriesBurned(savedRoutine.getCaloriesBurned())
+                    .caloriesBurned(caloriesBurned)
                     .completionStatus(false)
                     .build();
 
-            recommendations.add(ExerciseRecommendationResponse.from(
-                    recommendationRepository.save(recommendation)));
+            // ID 값을 임시로 설정 (실제 저장되지 않으므로)
+            setTempId(tempRoutine);
+            setTempId(tempRecommendation);
+
+            recommendations.add(ExerciseRecommendationResponse.from(tempRecommendation));
         }
 
         return recommendations;
+    }
+
+    // 임시 ID 설정을 위한 Reflection 사용
+    private void setTempId(Object obj) {
+        try {
+            Field idField = obj.getClass().getDeclaredField("id");
+            idField.setAccessible(true);
+            idField.set(obj, generateTempId());
+        } catch (Exception e) {
+            log.warn("Failed to set temporary id", e);
+        }
+    }
+
+    private static long tempIdCounter = 1000L;
+    private synchronized Long generateTempId() {
+        return tempIdCounter++;
     }
 
     // 사용자별 추천 이력 조회

@@ -33,6 +33,11 @@ public class ExercisePreferenceService {
 
     @Transactional
     public ExercisePreferenceResponse setPreference(Long userId, ExercisePreferenceRequest request) {
+        // 이미 선호도가 설정되어 있는지 확인
+        if (preferenceRepository.findByUserId(userId).isPresent()) {
+            throw new IllegalStateException("이미 운동 선호도가 설정되어 있습니다. 수정을 원하시면 PUT 메서드를 사용해주세요.");
+        }
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("사용자를 찾을 수 없습니다."));
 
@@ -56,14 +61,17 @@ public class ExercisePreferenceService {
 
     @Transactional
     public ExercisePreferenceResponse updatePreference(Long userId, ExercisePreferenceRequest request) {
+        // 기존 선호도 조회
         ExercisePreference preference = preferenceRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalStateException("수정할 운동 선호도가 없습니다."));
 
+        // 기존 객체 업데이트
         preference.updatePreferredBodyPart(request.getPreferredBodyPart());
         preference.updatePreferredCategory(determineCategory(request.getPreferredBodyPart()));
         preference.updatePreferredIntensity(request.getPreferredIntensity());
         preference.updatePreferredTimeOfDay(request.getPreferredTimeOfDay());
 
-        return ExercisePreferenceResponse.from(preference);
+        // 변경된 엔티티 저장 및 반환
+        return ExercisePreferenceResponse.from(preferenceRepository.save(preference));
     }
 }
