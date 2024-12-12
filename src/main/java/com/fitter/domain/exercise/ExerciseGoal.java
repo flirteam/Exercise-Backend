@@ -70,7 +70,6 @@ public class ExerciseGoal {
     public void updateStatus(GoalStatus status) {
         this.status = status;
         if (status == GoalStatus.완료 || status == GoalStatus.중단) {
-            this.endDate = LocalDate.now();
         }
     }
 

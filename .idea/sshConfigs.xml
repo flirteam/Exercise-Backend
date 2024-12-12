@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="15.165.140.72" id="eb27b64f-e6b9-43ff-b57c-7ff1b656ec75" keyPath="C:\Users\sbsim\.ssh\flirteam.pem" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>
