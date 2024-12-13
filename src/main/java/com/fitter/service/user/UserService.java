@@ -64,7 +64,7 @@ public class UserService {
                 .age(0)
                 .gender(UserPhysicalInfo.Gender.Male)
                 .activityLevel(1)
-                .goalType(UserPhysicalInfo.GoalType.균형_식단)
+                .goalType(UserPhysicalInfo.GoalType.균형식단)
                 .basalMetabolicRate(0.0)
                 .activeMetabolicRate(0.0)
                 .bmi(0.0)

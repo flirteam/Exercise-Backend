@@ -134,8 +134,8 @@ public class UserPhysicalInfo {
     }
 
     public enum GoalType {
-        저지방_고단백("저지방_고단백"),
-        균형_식단("균형_식단"),
+        저지방고단백("저지방고단백"),
+        균형식단("균형식단"),
         벌크업("벌크업");
 
         private final String value;
