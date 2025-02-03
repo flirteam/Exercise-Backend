@@ -213,7 +213,7 @@
   <img src="https://github.com/user-attachments/assets/91d716ed-d163-4b3d-80b7-bae3fd7cc93f" width="600">
 </div>
 
-## ❓ ERD 설계
+## 🏗️ ERD 설계
 <div align="center">
   <img src="https://github.com/user-attachments/assets/b7fb8cea-1807-4e69-8141-45ace5717fe0" width="800">
   <img src="https://github.com/user-attachments/assets/dc9041a4-a3d3-4ab5-961c-3d906fa70546" width="800">
