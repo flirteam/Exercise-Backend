@@ -50,9 +50,9 @@
 ### 로그인 및 신체정보 설정
 
 <div style="display: flex; justify-content: center; align-items: center;">
-  <img src="https://github.com/user-attachments/assets/d20ac978-883b-4cb9-945d-476204669bb1" width="300">
-  <img src="https://github.com/user-attachments/assets/887b3fc6-7207-43a8-87a1-03d8d677f66f" width="300">
-  <img src="https://github.com/user-attachments/assets/ebfcce51-7255-4a62-b5e4-66f475451899" width="300">
+  <img src="https://github.com/user-attachments/assets/d20ac978-883b-4cb9-945d-476204669bb1" width="200">
+  <img src="https://github.com/user-attachments/assets/887b3fc6-7207-43a8-87a1-03d8d677f66f" width="200">
+  <img src="https://github.com/user-attachments/assets/ebfcce51-7255-4a62-b5e4-66f475451899" width="200">
 
 </div>
 
