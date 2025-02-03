@@ -14,4 +14,21 @@
 <li>$\ \textcolor{#1043A4}{목표\ 달성일\ 예측\ 모델},
   \ AI\ 딥러닝\ 모델기반\ 목표\ 달성일\ 예측\ 수행.$</li>
 <li>$\ \textcolor{#1043A4}{간편한\ 사용자\ 경험},
-  \ 정보\ 검색\ 및\ 계산과\ 같은\ 과정\ 자동적\ 수행\ 직관적\ 계획\ 실천\ 가능.$</li>
+  \ 정보\ 검색\ 및\ 계산과\ 같은\ 과정\ 자동적\ 수행으로\ 직관적\ 계획\ 실천\ 가능.$</li>
+
+## 🙋‍♀️BE 팀원 소개
+<table>
+  <tr>
+    <td width="200px">
+      <a href="https://github.com/yechan-kim" target="_blank">  
+      <img src="https://github.com/user-attachments/assets/c0f1d7eb-f527-4496-bcf1-9360ecb524d2" alt="황세빈" />
+      </a>  
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/yechan-kim" target="_blank">
+        황세빈
+      </a>
+  </tr>
+</table>
