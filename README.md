@@ -53,7 +53,14 @@
   <img src="https://github.com/user-attachments/assets/d20ac978-883b-4cb9-945d-476204669bb1" width="200">
   <img src="https://github.com/user-attachments/assets/887b3fc6-7207-43a8-87a1-03d8d677f66f" width="200">
   <img src="https://github.com/user-attachments/assets/ebfcce51-7255-4a62-b5e4-66f475451899" width="200">
+</div>
 
+### 식단 페이지
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/612ec7d6-89d1-432b-8cc5-6baef9bb3d3f" width="200">
+  <img src="https://github.com/user-attachments/assets/bf58f493-f92a-467b-9509-f1dd523f0254" width="200">
+  <img src="https://github.com/user-attachments/assets/dde2ffd3-aa3a-4260-925c-5f21362629f8" width="200">
 </div>
 
 
