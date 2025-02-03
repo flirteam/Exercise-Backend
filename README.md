@@ -67,6 +67,21 @@
   <img src="https://github.com/user-attachments/assets/0a657c9f-2c63-485e-872d-4910146d48ad" width="200">
 </div>
 
+### 운동 카테고리 및 정보 페이지
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/03c2e96d-e3a5-4b9c-b5dd-e9191e5d987f" width="200">
+  <img src="https://github.com/user-attachments/assets/16c93dc1-58ac-4c60-88d0-d739bf5cc79e" width="200">
+  <img src="https://github.com/user-attachments/assets/9961c501-2171-4afb-a34c-4bce679cec99" width="200">
+</div>
+
+### 운동 일정 및 목표 페이지
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/076c3b3b-bd4b-4406-be0d-aa18c2d829f4" width="200">
+  <img src="https://github.com/user-attachments/assets/b1f87d65-8666-4cda-a416-264832cbe3e8" width="200">
+</div>
+
 
 ### 식단 페이지
 
@@ -81,6 +96,28 @@
   <img src="https://github.com/user-attachments/assets/fccce211-e99b-4774-a627-f5c2b7d54632" width="200">
   <img src="https://github.com/user-attachments/assets/6aa4c683-6812-487a-bce4-9fbce9e2912c" width="200">
 </div>
+
+### 챗봇 페이지
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/cdd74561-d2fa-4c6d-bda1-0c3b9b85c6e1" width="200">
+  <img src="https://github.com/user-attachments/assets/94d4e3da-4aea-4a6d-b707-5ba2fcd6efa7" width="200">
+</div>
+
+### 달성일 예측 페이지
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/efb3aefc-7f79-4248-bc21-838aca7e41c3" width="200">
+  <img src="https://github.com/user-attachments/assets/14c4e83a-a009-417d-b8d5-d9231b68c8aa" width="200">
+</div>
+
+### 계정 설정 페이지
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/0da87241-683f-4b46-8a3e-444776667beb" width="200">
+  <img src="https://github.com/user-attachments/assets/cb8f1810-159f-4cdd-aadc-5732a65d5393" width="200">
+  <img src="https://github.com/user-attachments/assets/eefaa958-19e5-450f-8434-ffb36ba4d589" width="200">
+  <img src="https://github.com/user-attachments/assets/e67baa13-63cb-4f80-90f9-662ffd971a07" width="200">
+</div>
+
 
 ## 🏗️ 아키텍쳐
 <div align="center">
