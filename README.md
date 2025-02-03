@@ -47,15 +47,21 @@
 
 ## 🖥 화면 구성 
 
-### 로그인 
-![image](https://github.com/user-attachments/assets/234d566a-c26b-43aa-af76-26c1ff8b6b50)
+### 로그인 및 신체정보 설정
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/d20ac978-883b-4cb9-945d-476204669bb1" width="300">
+  <img src="https://github.com/user-attachments/assets/887b3fc6-7207-43a8-87a1-03d8d677f66f" width="300">
+  <img src="https://github.com/user-attachments/assets/ebfcce51-7255-4a62-b5e4-66f475451899" width="300">
+
+</div>
 
 
 ## 🏗️ 아키텍쳐
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/d3103d92-18f1-4f23-8650-e36bd6eee4be">
-  <img src="https://github.com/user-attachments/assets/5f961928-95ef-451d-8516-3657461341c9">
-  <img src="https://github.com/user-attachments/assets/91d716ed-d163-4b3d-80b7-bae3fd7cc93f">
+  <img src="https://github.com/user-attachments/assets/d3103d92-18f1-4f23-8650-e36bd6eee4be" width="600">
+  <img src="https://github.com/user-attachments/assets/5f961928-95ef-451d-8516-3657461341c9" width="600">
+  <img src="https://github.com/user-attachments/assets/91d716ed-d163-4b3d-80b7-bae3fd7cc93f" width="600">
 
 
 
