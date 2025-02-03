@@ -16,7 +16,7 @@
 <li>$\ \textcolor{#1043A4}{간편한\ 사용자\ 경험},
   \ 정보\ 검색\ 및\ 계산과\ 같은\ 과정\ 자동적\ 수행으로\ 직관적\ 계획\ 실천\ 가능.$</li>
 
-## 🙋‍♀️BE 팀원 소개
+## 🙋‍♀️Exercise-BE(운동관련 백엔드)_팀원 소개
 <table>
   <tr>
     <td width="200px">
@@ -32,3 +32,22 @@
       </a>
   </tr>
 </table>
+
+## 🛠 기술 스택
+
+<div align="center">
+  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
+  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+</div>
+<div align="center">
+  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">  
+  <img src="https://img.shields.io/badge/Notion-A8B9CC?style=for-the-badge&logo=Notion&logoColor=black"> 
+</div>
+
+## 🏗️ 아키텍쳐
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/d3103d92-18f1-4f23-8650-e36bd6eee4be">
+  <img src="https://github.com/user-attachments/assets/5f961928-95ef-451d-8516-3657461341c9">
+
+
