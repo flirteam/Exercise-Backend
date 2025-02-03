@@ -46,6 +46,10 @@
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">  
   <img src="https://img.shields.io/badge/Notion-A8B9CC?style=for-the-badge&logo=Notion&logoColor=black"> 
 </div>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/e8149f8d-410c-4429-a92f-ab19fac0adee" width="600">  
+</div>
+
 
 ## 🖥 화면 구성 
 
@@ -120,9 +124,10 @@
   <img src="https://github.com/user-attachments/assets/e67baa13-63cb-4f80-90f9-662ffd971a07" width="200">
 </div>
 
-## 요구기능 정의
+## ❓ 요구기능 정의
 <div align="center">
   <img src="https://github.com/user-attachments/assets/c13ee8ca-3846-4b39-ae1c-c9d549f4e29d" width="600">
+  <img src="https://github.com/user-attachments/assets/00105a0e-97ce-445c-9b09-f1fa27090a94" width="600">
 </div>
 
 ### 회원 가입
@@ -158,9 +163,8 @@
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/2426eb75-a88b-4442-8188-51242b416e16" width="600">
+  <img src="https://github.com/user-attachments/assets/ce800137-663e-404c-855c-8d5264da8c69" width="600">
 </div>
-
-## 운동 관리 기능
 
 ### 1) 운동 목표 관리
 - 사용자는 **일일 목표 운동 시간과 목표 소모 칼로리를 설정**할 수 있다.
@@ -209,4 +213,9 @@
   <img src="https://github.com/user-attachments/assets/91d716ed-d163-4b3d-80b7-bae3fd7cc93f" width="600">
 </div>
 
+## ❓ ERD 설계
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b7fb8cea-1807-4e69-8141-45ace5717fe0" width="800">
+  <img src="https://github.com/user-attachments/assets/dc9041a4-a3d3-4ab5-961c-3d906fa70546" width="800">
+</div>
 
