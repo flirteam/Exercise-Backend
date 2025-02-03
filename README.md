@@ -27,7 +27,7 @@
   </tr>
   <tr>
     <td align="center">
-      <a href="https://github.com/yechan-kim" target="_blank">
+      <a href="https://github.com/Hwang-sebin" target="_blank">
         황세빈
       </a>
   </tr>
