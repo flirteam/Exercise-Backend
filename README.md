@@ -1,7 +1,7 @@
 ## 💪 Fitter
 
 <div align="center">
-<img width="100" src="https://github.com/user-attachments/assets/439987a9-35b0-46d2-a91d-956359176b35">
+<img width="200" src="https://github.com/user-attachments/assets/439987a9-35b0-46d2-a91d-956359176b35">
   </br> </br>
   
 <h4>$\huge{\boldsymbol{사용자\ 맞춤\ 식단\ 및\ 운동\ 추천을\ 위한\ AI\ 딥러닝\textcolor{#1043A4}{ 예측\ 서비스}}}$</h4>
@@ -55,14 +55,32 @@
   <img src="https://github.com/user-attachments/assets/ebfcce51-7255-4a62-b5e4-66f475451899" width="200">
 </div>
 
+### 운동 페이지
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/0a8dae19-0233-46f3-b242-5cad740a0f39" width="200">
+</div>
+
+### 운동 추천 페이지
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/0a657c9f-2c63-485e-872d-4910146d48ad" width="200">
+</div>
+
+
 ### 식단 페이지
 
 <div style="display: flex; justify-content: center; align-items: center;">
   <img src="https://github.com/user-attachments/assets/612ec7d6-89d1-432b-8cc5-6baef9bb3d3f" width="200">
   <img src="https://github.com/user-attachments/assets/bf58f493-f92a-467b-9509-f1dd523f0254" width="200">
+<br>
   <img src="https://github.com/user-attachments/assets/dde2ffd3-aa3a-4260-925c-5f21362629f8" width="200">
+  <img src="https://github.com/user-attachments/assets/a7b6f0b9-987a-49b2-8764-77aaf95f69fa" width="200">
+  <img src="https://github.com/user-attachments/assets/40d2794f-1894-4d03-ac33-36f89c3f7763" width="200">
+<br>
+  <img src="https://github.com/user-attachments/assets/fccce211-e99b-4774-a627-f5c2b7d54632" width="200">
+  <img src="https://github.com/user-attachments/assets/6aa4c683-6812-487a-bce4-9fbce9e2912c" width="200">
 </div>
-
 
 ## 🏗️ 아키텍쳐
 <div align="center">
