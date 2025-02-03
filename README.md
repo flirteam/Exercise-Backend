@@ -45,6 +45,12 @@
   <img src="https://img.shields.io/badge/Notion-A8B9CC?style=for-the-badge&logo=Notion&logoColor=black"> 
 </div>
 
+## 🖥 화면 구성 
+
+### 로그인 
+![image](https://github.com/user-attachments/assets/234d566a-c26b-43aa-af76-26c1ff8b6b50)
+
+
 ## 🏗️ 아키텍쳐
 <div align="center">
   <img src="https://github.com/user-attachments/assets/d3103d92-18f1-4f23-8650-e36bd6eee4be">
