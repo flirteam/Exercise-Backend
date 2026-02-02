@@ -22,7 +22,7 @@
 <table>
   <tr>
     <td width="200px">
-      <a href="https://github.com/yechan-kim" target="_blank">  
+      <a href="https://github.com/Hwang-sebin" target="_blank">  
       <img src="https://github.com/user-attachments/assets/c0f1d7eb-f527-4496-bcf1-9360ecb524d2" alt="황세빈" />
       </a>  
     </td>
